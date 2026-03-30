@@ -5,15 +5,239 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/background" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Github Test"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:background="@color/card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Browse Menu"
+            android:textColor="@color/text_primary"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/imgLogo"
+            app:layout_constraintEnd_toStartOf="@id/btnCart"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnCart"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="@color/primary"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/outline_shopping_cart_24" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+
+        android:queryBackground="@android:color/transparent"
+        android:background="@drawable/search_bg"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+
+        android:iconifiedByDefault="false"
+        android:queryHint="Search menu..."
+
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <HorizontalScrollView
+        android:id="@+id/categoryScroll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:scrollbars="none"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
+
+            <TextView
+                android:id="@+id/btnAll"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="All"
+                android:gravity="center"
+                android:background="@drawable/category_bg"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:layout_marginEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"/>
+
+            <TextView
+                android:id="@+id/btnBurgers"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Burgers"
+                android:gravity="center"
+                android:background="@drawable/category_bg"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:layout_marginEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"/>
+
+            <TextView
+                android:id="@+id/btnPizza"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Pizza"
+                android:gravity="center"
+                android:background="@drawable/category_bg"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:layout_marginEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"/>
+
+            <TextView
+                android:id="@+id/btnDrinks"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Drinks"
+                android:gravity="center"
+                android:background="@drawable/category_bg"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:layout_marginEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"/>
+
+            <TextView
+                android:id="@+id/btnSides"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Sides"
+                android:gravity="center"
+                android:background="@drawable/category_bg"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:layout_marginEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"/>
+
+            <TextView
+                android:id="@+id/btnDesserts"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Desserts"
+                android:gravity="center"
+                android:background="@drawable/category_bg"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:layout_marginEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"/>
+
+            <TextView
+                android:id="@+id/btnCombos"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Combos"
+                android:gravity="center"
+                android:background="@drawable/category_bg"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:layout_marginEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"/>
+
+            <TextView
+                android:id="@+id/btnVegan"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Vegan"
+                android:gravity="center"
+                android:background="@drawable/category_bg"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:layout_marginEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"/>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerMenu"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+
+        android:padding="8dp"
+        android:clipToPadding="false"
+
+        app:layout_constraintTop_toBottomOf="@id/categoryScroll"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
