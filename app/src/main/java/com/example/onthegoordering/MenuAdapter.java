@@ -44,6 +44,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         MenuItem item = list.get(position);
         holder.name.setText(item.name);
+        holder.description.setText(item.description);
         holder.price.setText(item.price);
         holder.image.setImageResource(item.image);
 
