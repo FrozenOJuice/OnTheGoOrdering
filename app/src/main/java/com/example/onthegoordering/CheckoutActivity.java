@@ -24,7 +24,6 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
-        // --- Bind UI ---
         orderTypeGroup = findViewById(R.id.orderTypeGroup);
         radioPickup = findViewById(R.id.radioPickup);
         radioDelivery = findViewById(R.id.radioDelivery);
@@ -42,7 +41,6 @@ public class CheckoutActivity extends AppCompatActivity {
         backToCartBtn = findViewById(R.id.backToCartBtn);
         placeOrderBtn = findViewById(R.id.placeOrderBtn);
 
-        // --- Toggle Pickup / Delivery ---
         orderTypeGroup.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.radioPickup) {
                 deliverySection.setVisibility(View.GONE);
@@ -53,13 +51,10 @@ public class CheckoutActivity extends AppCompatActivity {
             }
         });
 
-        // --- Load Order Summary ---
         updateSummary();
 
-        // --- Back Button ---
         backToCartBtn.setOnClickListener(v -> finish());
 
-        // --- Place Order ---
         placeOrderBtn.setOnClickListener(v -> placeOrder());
     }
 
@@ -96,10 +91,8 @@ public class CheckoutActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Order placed!", Toast.LENGTH_SHORT).show();
 
-        // Clear cart
         CartManager.getCart().clear();
 
-        // Go to confirmation screen
         Intent intent = new Intent(this, ConfirmationActivity.class);
         intent.putExtra("customerName", name);
         startActivity(intent);

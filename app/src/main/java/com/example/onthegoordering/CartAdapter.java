@@ -48,7 +48,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.quantity.setText("Qty: " + item.quantity);
         holder.price.setText("$" + String.format("%.2f", item.getTotalPrice()));
 
-        // extras display
         if (item.extras == null || item.extras.isEmpty()) {
             holder.extras.setText("No extras");
         } else {
@@ -59,12 +58,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             holder.extras.setText(extrasText.toString());
         }
 
-        // remove button
         holder.remove.setOnClickListener(v -> {
             listener.onRemove(position);
         });
 
-        // customize button
         holder.customize.setOnClickListener(v -> {
             listener.onEdit(item, position);
         });
@@ -75,7 +72,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         return cart.size();
     }
 
-    // Listener interface
     public interface CartListener {
         void onRemove(int position);
         void onEdit(CartItem item, int position);

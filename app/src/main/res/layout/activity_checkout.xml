@@ -60,7 +60,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- ORDER TYPE & ADDRESS SECTION -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,7 +104,6 @@
                         android:background="@color/border"
                         android:layout_marginBottom="16dp"/>
 
-                    <!-- PICKUP ADDRESS -->
                     <TextView
                         android:id="@+id/pickupAddress"
                         android:text="Pickup at: 123 Food St"
@@ -114,7 +112,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
-                    <!-- DELIVERY SECTION -->
                     <LinearLayout
                         android:id="@+id/deliverySection"
                         android:orientation="vertical"
@@ -134,7 +131,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- CUSTOMER INFO CARD -->
             <androidx.cardview.widget.CardView
                 android:layout_marginTop="12dp"
                 app:cardCornerRadius="12dp"
@@ -168,7 +164,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- ORDER SUMMARY CARD -->
             <androidx.cardview.widget.CardView
                 android:layout_marginTop="12dp"
                 app:cardCornerRadius="12dp"
@@ -204,7 +199,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- BUTTONS -->
             <Button
                 android:id="@+id/backToCartBtn"
                 android:text="Back to Cart"

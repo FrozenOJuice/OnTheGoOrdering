@@ -56,11 +56,7 @@ public class CartManager {
     }
 
     public static void updateItem(int index, CartItem updatedItem) {
-
-        // Remove the old item first
         cart.remove(index);
-
-        // Try to merge like a normal add
         addItem(updatedItem);
     }
 }

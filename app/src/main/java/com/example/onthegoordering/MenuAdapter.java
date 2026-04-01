@@ -62,7 +62,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
             CartManager.addItem(cartItem);
 
-            // Feedback (important for UX + marks)
             android.widget.Toast.makeText(
                     v.getContext(),
                     "Added to cart",

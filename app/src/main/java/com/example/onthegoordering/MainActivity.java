@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // 🔥 Moved all menu creation out of onCreate
     private ArrayList<MenuItem> createMenu() {
         ArrayList<MenuItem> list = new ArrayList<>();
 
@@ -213,36 +212,29 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Extra> dessertExtras = new ArrayList<>();
 
-        // Burgers
         list.add(new MenuItem("Cheeseburger", "Juicy beef with melted cheese", 8.99, R.drawable.cheeseburger, "Burgers", cheeseburgerExtras));
         list.add(new MenuItem("Double Burger", "Two patties, extra filling", 10.99, R.drawable.double_cheeseburger, "Burgers", cheeseburgerExtras));
         list.add(new MenuItem("Bacon Burger", "Crispy bacon and beef", 9.99, R.drawable.bacon_cheeseburger, "Burgers", baconBurgerExtras));
 
-        // Pizza
         list.add(new MenuItem("Pepperoni Pizza", "Classic pepperoni slices", 12.99, R.drawable.pepperoni_pizza, "Pizza", pepperoniPizzaExtras));
         list.add(new MenuItem("Cheese Pizza", "Simple and cheesy", 11.99, R.drawable.cheese_pizza, "Pizza", cheesePizzaExtras));
         list.add(new MenuItem("Veggie Pizza", "Loaded with fresh veggies", 12.49, R.drawable.veggie_pizza, "Pizza", veggiePizzaExtras));
 
-        // Wraps
         list.add(new MenuItem("Chicken Wrap", "Grilled chicken wrap", 9.99, R.drawable.chicken_wrap, "Wraps", chickenWrapExtras));
         list.add(new MenuItem("Beef Wrap", "Savory beef wrap", 10.49, R.drawable.beef_wrap, "Wraps", beefWrapExtras));
         list.add(new MenuItem("Veggie Wrap", "Fresh veggie wrap", 8.99, R.drawable.veggie_wrap, "Wraps", veggieWrapExtras));
 
-        // Vegan
         list.add(new MenuItem("Vegan Burger", "Plant-based burger", 9.99, R.drawable.vegan_burger, "Vegan", veganExtras));
         list.add(new MenuItem("Vegan Bowl", "Healthy veggie bowl", 10.99, R.drawable.vegan_bowl, "Vegan", veganExtras));
 
-        // Drinks
         list.add(new MenuItem("Coke", "Refreshing cola drink", 2.99, R.drawable.coke, "Drinks", drinkExtras));
         list.add(new MenuItem("Sprite", "Lemon-lime soda", 2.99, R.drawable.sprite, "Drinks", drinkExtras));
         list.add(new MenuItem("Iced Tea", "Chilled refreshing tea", 2.99, R.drawable.iced_tea, "Drinks", drinkExtras));
 
-        // Sides
         list.add(new MenuItem("Fries", "Crispy golden fries", 4.99, R.drawable.fries, "Sides", friesExtras));
         list.add(new MenuItem("Onion Rings", "Crispy battered rings", 5.49, R.drawable.onion_rings, "Sides", onionRingExtras));
         list.add(new MenuItem("Caesar Salad", "Fresh romaine with Caesar dressing", 6.99, R.drawable.caesar_salad, "Sides", caesarSaladExtras));
 
-        // Desserts
         list.add(new MenuItem("Ice Cream", "Vanilla scoop", 3.99, R.drawable.ice_cream, "Desserts", dessertExtras));
         list.add(new MenuItem("Brownie", "Rich chocolate brownie", 3.49, R.drawable.brownie, "Desserts", dessertExtras));
 

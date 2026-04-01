@@ -75,11 +75,9 @@ public class CustomizeActivity extends AppCompatActivity {
     }
 
     private void setupExtras() {
-        ArrayList<Extra> allExtras =
-                (ArrayList<Extra>) getIntent().getSerializableExtra("extras");
+        ArrayList<Extra> allExtras = (ArrayList<Extra>) getIntent().getSerializableExtra("extras");
 
-        ArrayList<Extra> selectedExtras =
-                (ArrayList<Extra>) getIntent().getSerializableExtra("selectedExtras");
+        ArrayList<Extra> selectedExtras = (ArrayList<Extra>) getIntent().getSerializableExtra("selectedExtras");
 
         LinearLayout container = findViewById(R.id.extrasContainer);
 
@@ -198,11 +196,8 @@ public class CustomizeActivity extends AppCompatActivity {
     }
 
     private boolean hasChanges() {
-
-        // Check quantity
         if (quantity != initialQuantity) return true;
 
-        // Build current extras list
         ArrayList<String> current = new ArrayList<>();
         for (CheckBox cb : checkBoxes) {
             if (cb.isChecked()) {
@@ -211,10 +206,8 @@ public class CustomizeActivity extends AppCompatActivity {
             }
         }
 
-        // Compare sizes first
         if (current.size() != initialExtras.size()) return true;
 
-        // Compare contents (order-independent)
         for (String s : current) {
             if (!initialExtras.contains(s)) return true;
         }
@@ -223,6 +216,6 @@ public class CustomizeActivity extends AppCompatActivity {
             if (!current.contains(s)) return true;
         }
 
-        return false; // no changes
+        return false;
     }
 }
