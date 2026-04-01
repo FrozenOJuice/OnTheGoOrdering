@@ -42,81 +42,76 @@ public class MainActivity extends AppCompatActivity {
         fullList = new ArrayList<>();
         filteredList = new ArrayList<>();
 
-        ArrayList<String> cheeseburgerExtras = new ArrayList<>();
-        cheeseburgerExtras.add("Extra Cheese");
-        cheeseburgerExtras.add("Extra Lettuce");
-        cheeseburgerExtras.add("Extra Tomatoes");
-        cheeseburgerExtras.add("Extra Sauce");
-        cheeseburgerExtras.add("Extra Beef");
+        ArrayList<Extra> cheeseburgerExtras = new ArrayList<>();
+        cheeseburgerExtras.add(new Extra("Extra Cheese", 0.99));
+        cheeseburgerExtras.add(new Extra("Extra Lettuce", 0.99));
+        cheeseburgerExtras.add(new Extra("Extra Tomatoes", 0.99));
+        cheeseburgerExtras.add(new Extra("Extra Sauce", 0.99));
+        cheeseburgerExtras.add(new Extra("Extra Beef", 2.99));
 
-        ArrayList<String> baconBurgerExtras = new ArrayList<>();
-        baconBurgerExtras.add("Extra Bacon");
-        baconBurgerExtras.add("Extra Cheese");
-        baconBurgerExtras.add("Extra Lettuce");
-        baconBurgerExtras.add("Extra Tomatoes");
-        baconBurgerExtras.add("Extra Sauce");
-        baconBurgerExtras.add("Extra Beef");
+        ArrayList<Extra> baconBurgerExtras = new ArrayList<>();
+        baconBurgerExtras.add(new Extra("Extra Bacon", 1.99));
+        baconBurgerExtras.add(new Extra("Extra Cheese", 0.99));
+        baconBurgerExtras.add(new Extra("Extra Lettuce", 0.99));
+        baconBurgerExtras.add(new Extra("Extra Tomatoes", 0.99));
+        baconBurgerExtras.add(new Extra("Extra Sauce", 0.99));
+        baconBurgerExtras.add(new Extra("Extra Beef", 2.99));
 
+        ArrayList<Extra> pepperoniPizzaExtras = new ArrayList<>();
+        pepperoniPizzaExtras.add(new Extra("Extra Pepperoni", 1.99));
+        pepperoniPizzaExtras.add(new Extra("Extra Cheese", 1.49));
+        pepperoniPizzaExtras.add(new Extra("Extra Sauce", 0.99));
 
-        ArrayList<String> pepperoniPizzaExtras = new ArrayList<>();
-        pepperoniPizzaExtras.add("Extra Pepperoni");
-        pepperoniPizzaExtras.add("Extra Cheese");
-        pepperoniPizzaExtras.add("Extra Sauce");
+        ArrayList<Extra> cheesePizzaExtras = new ArrayList<>();
+        cheesePizzaExtras.add(new Extra("Extra Cheese", 1.49));
+        cheesePizzaExtras.add(new Extra("Extra Sauce", 0.99));
 
-        ArrayList<String> cheesePizzaExtras = new ArrayList<>();
-        cheesePizzaExtras.add("Extra Cheese");
-        cheesePizzaExtras.add("Extra Sauce");
+        ArrayList<Extra> veggiePizzaExtras = new ArrayList<>();
+        veggiePizzaExtras.add(new Extra("Extra Veggies", 1.49));
+        veggiePizzaExtras.add(new Extra("Extra Cheese", 1.49));
+        veggiePizzaExtras.add(new Extra("Extra Sauce", 0.99));
 
-        ArrayList<String> veggiePizzaExtras = new ArrayList<>();
-        veggiePizzaExtras.add("Extra Veggies");
-        veggiePizzaExtras.add("Extra Cheese");
-        veggiePizzaExtras.add("Extra Sauce");
+        ArrayList<Extra> chickenWrapExtras = new ArrayList<>();
+        chickenWrapExtras.add(new Extra("Extra Chicken", 2.49));
+        chickenWrapExtras.add(new Extra("Extra Lettuce", 0.99));
+        chickenWrapExtras.add(new Extra("Extra Tomatoes", 0.99));
+        chickenWrapExtras.add(new Extra("Extra Sauce", 0.99));
+        chickenWrapExtras.add(new Extra("Extra Cheese", 1.49));
 
+        ArrayList<Extra> beefWrapExtras = new ArrayList<>();
+        beefWrapExtras.add(new Extra("Extra Beef", 2.49));
+        beefWrapExtras.add(new Extra("Extra Lettuce", 0.99));
+        beefWrapExtras.add(new Extra("Extra Tomatoes", 0.99));
+        beefWrapExtras.add(new Extra("Extra Sauce", 0.99));
+        beefWrapExtras.add(new Extra("Extra Cheese", 1.49));
 
-        ArrayList<String> chickenWrapExtras = new ArrayList<>();
-        chickenWrapExtras.add("Extra Chicken");
-        chickenWrapExtras.add("Extra Lettuce");
-        chickenWrapExtras.add("Extra Tomatoes");
-        chickenWrapExtras.add("Extra Sauce");
-        chickenWrapExtras.add("Extra Cheese");
+        ArrayList<Extra> veggieWrapExtras = new ArrayList<>();
+        veggieWrapExtras.add(new Extra("Extra Veggies", 1.49));
+        veggieWrapExtras.add(new Extra("Extra Lettuce", 0.99));
+        veggieWrapExtras.add(new Extra("Extra Tomatoes", 0.99));
+        veggieWrapExtras.add(new Extra("Extra Sauce", 0.99));
 
-        ArrayList<String> beefWrapExtras = new ArrayList<>();
-        beefWrapExtras.add("Extra Beef");
-        beefWrapExtras.add("Extra Lettuce");
-        beefWrapExtras.add("Extra Tomatoes");
-        beefWrapExtras.add("Extra Sauce");
-        beefWrapExtras.add("Extra Cheese");
+        ArrayList<Extra> veganExtras = new ArrayList<>();
+        veganExtras.add(new Extra("Extra Veggies", 1.49));
+        veganExtras.add(new Extra("Extra Sauce", 0.99));
 
-        ArrayList<String> veggieWrapExtras = new ArrayList<>();
-        veggieWrapExtras.add("Extra Veggies");
-        veggieWrapExtras.add("Extra Lettuce");
-        veggieWrapExtras.add("Extra Tomatoes");
-        veggieWrapExtras.add("Extra Sauce");
+        ArrayList<Extra> drinkExtras = new ArrayList<>();
+        drinkExtras.add(new Extra("Add Ice", 0.00));
 
+        ArrayList<Extra> friesExtras = new ArrayList<>();
+        friesExtras.add(new Extra("Extra Salt", 0.00));
+        friesExtras.add(new Extra("Extra Sauce", 0.99));
 
-        ArrayList<String> veganExtras = new ArrayList<>();
-        veganExtras.add("Extra Veggies");
-        veganExtras.add("Extra Sauce");
+        ArrayList<Extra> onionRingExtras = new ArrayList<>();
+        onionRingExtras.add(new Extra("Extra Sauce", 0.99));
 
+        ArrayList<Extra> caesarSaladExtras = new ArrayList<>();
+        caesarSaladExtras.add(new Extra("Extra Chicken", 2.49));
+        caesarSaladExtras.add(new Extra("Extra Cheese", 1.49));
+        caesarSaladExtras.add(new Extra("Extra Sauce", 0.99));
+        caesarSaladExtras.add(new Extra("Extra Croutons", 0.99));
 
-        ArrayList<String> drinkExtras = new ArrayList<>();
-        drinkExtras.add("Add Ice");
-
-
-        ArrayList<String> friesExtras = new ArrayList<>();
-        friesExtras.add("Extra Salt");
-        friesExtras.add("Extra Sauce");
-
-        ArrayList<String> onionRingExtras = new ArrayList<>();
-        friesExtras.add("Extra Sauce");
-
-        ArrayList<String> caesarSaladExtras = new ArrayList<>();
-        caesarSaladExtras.add("Extra Chicken");
-        caesarSaladExtras.add("Extra Cheese");
-        caesarSaladExtras.add("Extra Sauce");
-        caesarSaladExtras.add("Extra Croutons");
-
-        ArrayList<String> dessertExtras = new ArrayList<>();
+        ArrayList<Extra> dessertExtras = new ArrayList<>();
 
 
         fullList.add(new MenuItem("Cheeseburger", "Juicy beef with melted cheese", "$8.99", R.drawable.cheeseburger, "Burgers", cheeseburgerExtras));

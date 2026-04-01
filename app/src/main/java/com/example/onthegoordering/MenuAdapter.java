@@ -61,7 +61,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
             intent.putExtra("image", item.image);
             intent.putExtra("description", item.description);
             intent.putExtra("category", item.category);
-            intent.putStringArrayListExtra("extras", item.extras);
+            intent.putExtra("extras", item.extras);
 
             v.getContext().startActivity(intent);
         });

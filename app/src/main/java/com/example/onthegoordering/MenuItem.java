@@ -8,9 +8,9 @@ public class MenuItem {
     String price;
     int image;
     String category;
-    ArrayList<String> extras;
+    ArrayList<Extra> extras;
 
-    public MenuItem(String name, String description, String price, int image, String category, ArrayList<String> extras) {
+    public MenuItem(String name, String description, String price, int image, String category, ArrayList<Extra> extras) {
         this.name = name;
         this.description = description;
         this.price = price;
