@@ -3,6 +3,7 @@ package com.example.onthegoordering;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,7 +40,6 @@ public class CartActivity extends AppCompatActivity {
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
-        // ✅ NEW: pass data + listener
         adapter = new CartAdapter(CartManager.getCart(), new CartAdapter.CartListener() {
             @Override
             public void onRemove(int position) {
@@ -70,6 +70,13 @@ public class CartActivity extends AppCompatActivity {
         updateTotal();
 
         findViewById(R.id.btnBackToMenu).setOnClickListener(v -> finish());
+
+        Button btnCheckout = findViewById(R.id.btnCheckout);
+
+        btnCheckout.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CheckoutActivity.class);
+            startActivity(intent);
+        });
     }
 
     public void updateTotal() {

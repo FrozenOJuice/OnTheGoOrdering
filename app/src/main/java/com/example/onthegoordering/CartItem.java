@@ -28,4 +28,18 @@ public class CartItem {
 
         return total * quantity;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public ArrayList<Extra> getExtras() {
+        return extras;
+    }
+
+
 }

@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class MenuItem {
     String name;
     String description;
-    String price;
+    double price;
     int image;
     String category;
     ArrayList<Extra> extras;
 
-    public MenuItem(String name, String description, String price, int image, String category, ArrayList<Extra> extras) {
+    public MenuItem(String name, String description, double price, int image, String category, ArrayList<Extra> extras) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -19,5 +19,3 @@ public class MenuItem {
         this.extras = extras;
     }
 }
-
-

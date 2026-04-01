@@ -46,16 +46,14 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         MenuItem item = list.get(position);
         holder.name.setText(item.name);
         holder.description.setText(item.description);
-        holder.price.setText(item.price);
+        holder.price.setText(String.format("$%.2f", item.price));
         holder.image.setImageResource(item.image);
 
         holder.btnAdd.setOnClickListener(v -> {
 
-            double basePrice = Double.parseDouble(item.price.replace("$", ""));
-
             CartItem cartItem = new CartItem(
                     item.name,
-                    basePrice,
+                    item.price,
                     1,
                     new ArrayList<>(),
                     item.extras,
@@ -76,8 +74,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
             Intent intent = new Intent(v.getContext(), CustomizeActivity.class);
 
             intent.putExtra("name", item.name);
-            double basePrice = Double.parseDouble(item.price.replace("$", ""));
-            intent.putExtra("price", basePrice);
+            intent.putExtra("price", item.price);
             intent.putExtra("image", item.image);
             intent.putExtra("description", item.description);
             intent.putExtra("category", item.category);
