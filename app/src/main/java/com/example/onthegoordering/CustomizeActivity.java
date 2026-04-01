@@ -2,10 +2,7 @@ package com.example.onthegoordering;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,91 +14,202 @@ import java.util.ArrayList;
 
 public class CustomizeActivity extends AppCompatActivity {
 
+    private double basePrice;
+    private int quantity = 1;
+
+    private TextView totalText, quantityText, nameText, priceText;
+    private ArrayList<CheckBox> checkBoxes = new ArrayList<>();
+    private ArrayList<String> initialExtras = new ArrayList<>();
+    private int initialQuantity;
+
+    private int editIndex = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_customize);
+
+        setupInsets();
+        initViews();
+        loadIntentData();
+        setupExtras();
+        setupButtons();
+        updateTotal();
+    }
+
+    private void setupInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
             return insets;
         });
+    }
 
-        ImageView image = findViewById(R.id.customImage);
-        TextView name = findViewById(R.id.customName);
-        TextView price = findViewById(R.id.customPrice);
+    private void initViews() {
+        nameText = findViewById(R.id.customName);
+        priceText = findViewById(R.id.customPrice);
+        quantityText = findViewById(R.id.txtQuantity);
+        totalText = findViewById(R.id.txtTotalPrice);
+    }
 
-        TextView quantityText = findViewById(R.id.txtQuantity);
-        TextView plus = findViewById(R.id.btnPlus);
-        TextView minus = findViewById(R.id.btnMinus);
-
-        TextView totalText = findViewById(R.id.txtTotalPrice);
-
-        double basePrice = Double.parseDouble(
-                getIntent().getStringExtra("price").replace("$", "")
-        );
-
+    private void loadIntentData() {
         Intent intent = getIntent();
 
-        name.setText(intent.getStringExtra("name"));
-        price.setText(intent.getStringExtra("price"));
-        image.setImageResource(intent.getIntExtra("image", 0));
+        editIndex = intent.getIntExtra("editIndex", -1);
 
-        String category = getIntent().getStringExtra("category");
+        basePrice = intent.getDoubleExtra("price", 0);
 
+        nameText.setText(intent.getStringExtra("name"));
+        priceText.setText("$" + String.format("%.2f", basePrice));
 
-        ArrayList<Extra> extras = (ArrayList<Extra>) getIntent().getSerializableExtra("extras");
+        ((ImageView) findViewById(R.id.customImage))
+                .setImageResource(intent.getIntExtra("image", 0));
 
-        LinearLayout extrasContainer = findViewById(R.id.extrasContainer);
+        if (editIndex != -1) {
+            quantity = intent.getIntExtra("quantity", 1);
+        }
 
-        ArrayList<CheckBox> checkBoxes = new ArrayList<>();
-        final int[] quantity = {1};
+        quantityText.setText(String.valueOf(quantity));
+        initialQuantity = quantity;
+    }
 
-        Runnable updateTotal = () -> {
-            double total = basePrice;
+    private void setupExtras() {
+        ArrayList<Extra> allExtras =
+                (ArrayList<Extra>) getIntent().getSerializableExtra("extras");
 
-            for (CheckBox cb : checkBoxes) {
-                if (cb.isChecked()) {
-                    Extra extra = (Extra) cb.getTag();
-                    total += extra.price;
-                }
+        ArrayList<Extra> selectedExtras =
+                (ArrayList<Extra>) getIntent().getSerializableExtra("selectedExtras");
+
+        LinearLayout container = findViewById(R.id.extrasContainer);
+
+        if (selectedExtras != null) {
+            for (Extra e : selectedExtras) {
+                initialExtras.add(e.name);
             }
+        }
 
-            total *= quantity[0];
+        if (allExtras == null) return;
 
-            totalText.setText("Total: $" + String.format("%.2f", total));
-        };
-
-        for (Extra extra : extras) {
+        for (Extra extra : allExtras) {
             CheckBox cb = new CheckBox(this);
             cb.setText(extra.name + " (+$" + extra.price + ")");
             cb.setTag(extra);
-            cb.setButtonTintList(getColorStateList(R.color.primary));
-            cb.setOnCheckedChangeListener((buttonView, isChecked) -> updateTotal.run());
 
-            extrasContainer.addView(cb);
+            if (initialExtras.contains(extra.name)) {
+                cb.setChecked(true);
+            }
+
+            cb.setOnCheckedChangeListener((b, isChecked) -> updateTotal());
+
+            container.addView(cb);
             checkBoxes.add(cb);
         }
-
-        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
-
-        plus.setOnClickListener(v -> {
-            quantity[0]++;
-            quantityText.setText(String.valueOf(quantity[0]));
-            updateTotal.run();
-        });
-
-        minus.setOnClickListener(v -> {
-            if (quantity[0] > 1) {
-                quantity[0]--;
-                quantityText.setText(String.valueOf(quantity[0]));
-            }
-            updateTotal.run();
-        });
-
-        updateTotal.run();
     }
 
+    private void setupButtons() {
 
+        findViewById(R.id.btnPlus).setOnClickListener(v -> {
+            quantity++;
+            quantityText.setText(String.valueOf(quantity));
+            updateTotal();
+        });
+
+        findViewById(R.id.btnMinus).setOnClickListener(v -> {
+            if (quantity > 1) quantity--;
+            quantityText.setText(String.valueOf(quantity));
+            updateTotal();
+        });
+
+        findViewById(R.id.btnCart).setOnClickListener(v -> {
+            startActivity(new Intent(this, CartActivity.class));
+        });
+
+        findViewById(R.id.btnBack).setOnClickListener(v -> handleBack());
+
+        Button btnAdd = findViewById(R.id.btnAddToCart);
+        if (editIndex != -1) {
+            btnAdd.setText("Update Item");
+        }
+
+        btnAdd.setOnClickListener(v -> saveItem());
+    }
+
+    private void updateTotal() {
+        double total = basePrice;
+
+        for (CheckBox cb : checkBoxes) {
+            if (cb.isChecked()) {
+                Extra e = (Extra) cb.getTag();
+                total += e.price;
+            }
+        }
+
+        total *= quantity;
+        totalText.setText("Total: $" + String.format("%.2f", total));
+    }
+
+    private void saveItem() {
+        ArrayList<Extra> selected = new ArrayList<>();
+
+        for (CheckBox cb : checkBoxes) {
+            if (cb.isChecked()) {
+                selected.add((Extra) cb.getTag());
+            }
+        }
+
+        CartItem item = new CartItem(
+                nameText.getText().toString(),
+                basePrice,
+                quantity,
+                selected,
+                getIntent().getIntExtra("image", 0)
+        );
+
+        if (editIndex != -1) {
+            CartManager.getCart().set(editIndex, item);
+        } else {
+            CartManager.addItem(item);
+        }
+
+        Toast.makeText(this,
+                editIndex != -1 ? "Item updated" : "Item added",
+                Toast.LENGTH_SHORT).show();
+
+        finish();
+    }
+
+    private void handleBack() {
+        if (!hasChanges()) {
+            finish();
+        } else {
+            new android.app.AlertDialog.Builder(this)
+                    .setTitle("Discard changes?")
+                    .setMessage("Your changes will not be saved.")
+                    .setPositiveButton("Discard", (d, w) -> finish())
+                    .setNegativeButton("Cancel", null)
+                    .show();
+        }
+    }
+
+    private boolean hasChanges() {
+        if (quantity != initialQuantity) return true;
+
+        ArrayList<String> current = new ArrayList<>();
+
+        for (CheckBox cb : checkBoxes) {
+            if (cb.isChecked()) {
+                Extra e = (Extra) cb.getTag();
+                current.add(e.name);
+            }
+        }
+
+        if (current.size() != initialExtras.size()) return true;
+
+        for (String s : current) {
+            if (!initialExtras.contains(s)) return true;
+        }
+
+        return false;
+    }
 }

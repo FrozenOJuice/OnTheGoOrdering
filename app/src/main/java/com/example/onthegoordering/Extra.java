@@ -1,6 +1,8 @@
 package com.example.onthegoordering;
 
-public class Extra implements java.io.Serializable {
+import java.io.Serializable;
+
+public class Extra implements Serializable {
     String name;
     double price;
 

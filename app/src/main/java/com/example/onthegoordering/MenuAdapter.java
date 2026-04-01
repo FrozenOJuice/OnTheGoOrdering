@@ -50,14 +50,33 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         holder.image.setImageResource(item.image);
 
         holder.btnAdd.setOnClickListener(v -> {
-            // later: add to cart
+
+            double basePrice = Double.parseDouble(item.price.replace("$", ""));
+
+            CartItem cartItem = new CartItem(
+                    item.name,
+                    basePrice,
+                    1,
+                    new ArrayList<>(),
+                    item.image
+            );
+
+            CartManager.addItem(cartItem);
+
+            // Feedback (important for UX + marks)
+            android.widget.Toast.makeText(
+                    v.getContext(),
+                    "Added to cart",
+                    android.widget.Toast.LENGTH_SHORT
+            ).show();
         });
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), CustomizeActivity.class);
 
             intent.putExtra("name", item.name);
-            intent.putExtra("price", item.price);
+            double basePrice = Double.parseDouble(item.price.replace("$", ""));
+            intent.putExtra("price", basePrice);
             intent.putExtra("image", item.image);
             intent.putExtra("description", item.description);
             intent.putExtra("category", item.category);
