@@ -52,13 +52,15 @@ public class CartActivity extends AppCompatActivity {
             public void onEdit(CartItem item, int position) {
                 Intent intent = new Intent(CartActivity.this, CustomizeActivity.class);
 
-                intent.putExtra("image", item.image);
                 intent.putExtra("name", item.name);
-                intent.putExtra("price", item.basePrice); // now double
+                intent.putExtra("price", item.basePrice);
                 intent.putExtra("quantity", item.quantity);
                 intent.putExtra("selectedExtras", item.extras);
+                intent.putExtra("extras", item.allExtras);
+                intent.putExtra("image", item.image);
                 intent.putExtra("editIndex", position);
 
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });

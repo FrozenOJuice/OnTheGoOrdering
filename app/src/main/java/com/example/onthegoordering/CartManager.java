@@ -8,8 +8,19 @@ public class CartManager {
         return cart;
     }
 
-    public static void addItem(CartItem item) {
-        cart.add(item);
+    public static void addItem(CartItem newItem) {
+
+        for (CartItem item : cart) {
+
+            if (item.name.equals(newItem.name) &&
+                    sameExtras(item.extras, newItem.extras)) {
+
+                item.quantity += newItem.quantity;
+                return;
+            }
+        }
+
+        cart.add(newItem);
     }
 
     public static void removeItem(int position) {
@@ -22,5 +33,34 @@ public class CartManager {
             total += item.getTotalPrice();
         }
         return total;
+    }
+
+    private static boolean sameExtras(ArrayList<Extra> a, ArrayList<Extra> b) {
+
+        if (a.size() != b.size()) return false;
+
+        for (Extra e1 : a) {
+            boolean found = false;
+
+            for (Extra e2 : b) {
+                if (e1.name.equals(e2.name)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) return false;
+        }
+
+        return true;
+    }
+
+    public static void updateItem(int index, CartItem updatedItem) {
+
+        // Remove the old item first
+        cart.remove(index);
+
+        // Try to merge like a normal add
+        addItem(updatedItem);
     }
 }

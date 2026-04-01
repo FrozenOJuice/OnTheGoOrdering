@@ -7,13 +7,15 @@ public class CartItem {
     double basePrice;
     int quantity;
     ArrayList<Extra> extras;
+    ArrayList<Extra> allExtras;
     int image;
 
-    public CartItem(String name, double basePrice, int quantity, ArrayList<Extra> extras, int image) {
+    public CartItem(String name, double basePrice, int quantity, ArrayList<Extra> extras, ArrayList<Extra> allExtras, int image) {
         this.name = name;
         this.basePrice = basePrice;
         this.quantity = quantity;
         this.extras = extras;
+        this.allExtras = allExtras;
         this.image = image;
     }
 

@@ -122,7 +122,11 @@ public class CustomizeActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.btnCart).setOnClickListener(v -> {
-            startActivity(new Intent(this, CartActivity.class));
+            Intent intent = new Intent(this, CartActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+
+            finish();
         });
 
         findViewById(R.id.btnBack).setOnClickListener(v -> handleBack());
@@ -163,11 +167,12 @@ public class CustomizeActivity extends AppCompatActivity {
                 basePrice,
                 quantity,
                 selected,
+                (ArrayList<Extra>) getIntent().getSerializableExtra("extras"),
                 getIntent().getIntExtra("image", 0)
         );
 
         if (editIndex != -1) {
-            CartManager.getCart().set(editIndex, item);
+            CartManager.updateItem(editIndex, item);
         } else {
             CartManager.addItem(item);
         }
@@ -193,10 +198,12 @@ public class CustomizeActivity extends AppCompatActivity {
     }
 
     private boolean hasChanges() {
+
+        // Check quantity
         if (quantity != initialQuantity) return true;
 
+        // Build current extras list
         ArrayList<String> current = new ArrayList<>();
-
         for (CheckBox cb : checkBoxes) {
             if (cb.isChecked()) {
                 Extra e = (Extra) cb.getTag();
@@ -204,12 +211,18 @@ public class CustomizeActivity extends AppCompatActivity {
             }
         }
 
+        // Compare sizes first
         if (current.size() != initialExtras.size()) return true;
 
+        // Compare contents (order-independent)
         for (String s : current) {
             if (!initialExtras.contains(s)) return true;
         }
 
-        return false;
+        for (String s : initialExtras) {
+            if (!current.contains(s)) return true;
+        }
+
+        return false; // no changes
     }
 }

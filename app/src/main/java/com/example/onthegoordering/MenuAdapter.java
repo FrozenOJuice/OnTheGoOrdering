@@ -58,6 +58,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
                     basePrice,
                     1,
                     new ArrayList<>(),
+                    item.extras,
                     item.image
             );
 
