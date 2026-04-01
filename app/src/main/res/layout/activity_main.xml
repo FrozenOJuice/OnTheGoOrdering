@@ -143,6 +143,38 @@
                 android:foreground="?attr/selectableItemBackground"/>
 
             <TextView
+                android:id="@+id/btnWraps"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Wraps"
+                android:gravity="center"
+                android:background="@drawable/category_bg"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:layout_marginEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"/>
+
+            <TextView
+                android:id="@+id/btnVegan"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Vegan"
+                android:gravity="center"
+                android:background="@drawable/category_bg"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:layout_marginEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"/>
+
+            <TextView
                 android:id="@+id/btnDrinks"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
@@ -179,38 +211,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:text="Desserts"
-                android:gravity="center"
-                android:background="@drawable/category_bg"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:layout_marginEnd="8dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"/>
-
-            <TextView
-                android:id="@+id/btnCombos"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:text="Combos"
-                android:gravity="center"
-                android:background="@drawable/category_bg"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:layout_marginEnd="8dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"/>
-
-            <TextView
-                android:id="@+id/btnVegan"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:text="Vegan"
                 android:gravity="center"
                 android:background="@drawable/category_bg"
                 android:textColor="@color/text_primary"

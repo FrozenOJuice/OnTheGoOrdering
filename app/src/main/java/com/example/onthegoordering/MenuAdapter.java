@@ -1,5 +1,6 @@
 package com.example.onthegoordering;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,19 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
         holder.btnAdd.setOnClickListener(v -> {
             // later: add to cart
+        });
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), CustomizeActivity.class);
+
+            intent.putExtra("name", item.name);
+            intent.putExtra("price", item.price);
+            intent.putExtra("image", item.image);
+            intent.putExtra("description", item.description);
+            intent.putExtra("category", item.category);
+            intent.putStringArrayListExtra("extras", item.extras);
+
+            v.getContext().startActivity(intent);
         });
     }
 

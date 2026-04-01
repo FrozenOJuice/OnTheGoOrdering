@@ -1,16 +1,22 @@
-package com.example.onthegoordering;public class MenuItem {
+package com.example.onthegoordering;
+
+import java.util.ArrayList;
+
+public class MenuItem {
     String name;
     String description;
     String price;
     int image;
     String category;
+    ArrayList<String> extras;
 
-    public MenuItem(String name, String description, String price, int image, String category) {
+    public MenuItem(String name, String description, String price, int image, String category, ArrayList<String> extras) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.image = image;
         this.category = category;
+        this.extras = extras;
     }
 }
 
