@@ -1,11 +1,14 @@
 package com.example.onthegoordering;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.*;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -18,6 +21,7 @@ public class CustomizeActivity extends AppCompatActivity {
     private int quantity = 1;
 
     private TextView totalText, quantityText, nameText, priceText;
+    private View btnMinus;
     private ArrayList<CheckBox> checkBoxes = new ArrayList<>();
     private ArrayList<String> initialExtras = new ArrayList<>();
     private int initialQuantity;
@@ -51,13 +55,13 @@ public class CustomizeActivity extends AppCompatActivity {
         priceText = findViewById(R.id.customPrice);
         quantityText = findViewById(R.id.txtQuantity);
         totalText = findViewById(R.id.txtTotalPrice);
+        btnMinus = findViewById(R.id.btnMinus);
     }
 
     private void loadIntentData() {
         Intent intent = getIntent();
 
         editIndex = intent.getIntExtra("editIndex", -1);
-
         basePrice = intent.getDoubleExtra("price", 0);
 
         nameText.setText(intent.getStringExtra("name"));
@@ -70,14 +74,15 @@ public class CustomizeActivity extends AppCompatActivity {
             quantity = intent.getIntExtra("quantity", 1);
         }
 
-        quantityText.setText(String.valueOf(quantity));
         initialQuantity = quantity;
     }
 
     private void setupExtras() {
-        ArrayList<Extra> allExtras = (ArrayList<Extra>) getIntent().getSerializableExtra("extras");
+        ArrayList<Extra> allExtras =
+                (ArrayList<Extra>) getIntent().getSerializableExtra("extras");
 
-        ArrayList<Extra> selectedExtras = (ArrayList<Extra>) getIntent().getSerializableExtra("selectedExtras");
+        ArrayList<Extra> selectedExtras =
+                (ArrayList<Extra>) getIntent().getSerializableExtra("selectedExtras");
 
         LinearLayout container = findViewById(R.id.extrasContainer);
 
@@ -89,10 +94,15 @@ public class CustomizeActivity extends AppCompatActivity {
 
         if (allExtras == null) return;
 
+        ColorStateList orangeList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primary));
+
         for (Extra extra : allExtras) {
             CheckBox cb = new CheckBox(this);
             cb.setText(extra.name + " (+$" + extra.price + ")");
             cb.setTag(extra);
+            
+            // Set orange tint for consistency
+            cb.setButtonTintList(orangeList);
 
             if (initialExtras.contains(extra.name)) {
                 cb.setChecked(true);
@@ -106,24 +116,22 @@ public class CustomizeActivity extends AppCompatActivity {
     }
 
     private void setupButtons() {
-
         findViewById(R.id.btnPlus).setOnClickListener(v -> {
             quantity++;
-            quantityText.setText(String.valueOf(quantity));
             updateTotal();
         });
 
-        findViewById(R.id.btnMinus).setOnClickListener(v -> {
-            if (quantity > 1) quantity--;
-            quantityText.setText(String.valueOf(quantity));
-            updateTotal();
+        btnMinus.setOnClickListener(v -> {
+            if (quantity > 1) {
+                quantity--;
+                updateTotal();
+            }
         });
 
         findViewById(R.id.btnCart).setOnClickListener(v -> {
             Intent intent = new Intent(this, CartActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
-
             finish();
         });
 
@@ -149,6 +157,18 @@ public class CustomizeActivity extends AppCompatActivity {
 
         total *= quantity;
         totalText.setText("Total: $" + String.format("%.2f", total));
+        
+        // Sync quantity text
+        quantityText.setText(String.valueOf(quantity));
+
+        // Visibility / Constraints principle: Update minus button appearance and interaction
+        if (quantity <= 1) {
+            btnMinus.setEnabled(false);
+            btnMinus.setAlpha(0.3f);
+        } else {
+            btnMinus.setEnabled(true);
+            btnMinus.setAlpha(1.0f);
+        }
     }
 
     private void saveItem() {

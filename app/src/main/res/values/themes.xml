@@ -2,7 +2,19 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.OnTheGoOrdering" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorSecondary">@color/primary</item>
+        <item name="colorOnSecondary">@color/card</item>
+        <item name="colorAccent">@color/primary</item>
+
+        <item name="colorControlActivated">@color/primary</item>
+        <item name="colorControlNormal">@color/primary</item>
+        <item name="colorOutline">@color/primary</item>
+
+        <item name="colorOnSurfaceVariant">@color/primary</item>
+        
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorSurfaceVariant">@color/primary</item>
     </style>
 
     <style name="Theme.OnTheGoOrdering" parent="Base.Theme.OnTheGoOrdering" />

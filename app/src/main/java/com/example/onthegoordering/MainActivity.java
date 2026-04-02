@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         setupSearch();
         setupCartButton();
 
-        applyFilters();
+        // Automatically select "All" category on startup
+        handleCategoryClick(findViewById(R.id.btnAll), "All");
     }
 
     private void setupInsets() {

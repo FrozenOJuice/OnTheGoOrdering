@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 public class CheckoutActivity extends AppCompatActivity {
 
@@ -22,7 +26,10 @@ public class CheckoutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_checkout);
+
+        setupInsets();
 
         orderTypeGroup = findViewById(R.id.orderTypeGroup);
         radioPickup = findViewById(R.id.radioPickup);
@@ -56,6 +63,14 @@ public class CheckoutActivity extends AppCompatActivity {
         backToCartBtn.setOnClickListener(v -> finish());
 
         placeOrderBtn.setOnClickListener(v -> placeOrder());
+    }
+
+    private void setupInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+            return insets;
+        });
     }
 
     private void updateSummary() {

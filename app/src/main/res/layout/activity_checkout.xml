@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -32,7 +33,7 @@
                 android:id="@+id/txtHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Your Order"
+                android:text="Checkout"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
@@ -85,7 +86,7 @@
                             android:id="@+id/radioPickup"
                             android:text="Pickup"
                             android:checked="true"
-                            android:buttonTint="@color/primary"
+                            app:buttonTint="@color/orange_tint_list"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="24dp"/>
@@ -93,7 +94,7 @@
                         <RadioButton
                             android:id="@+id/radioDelivery"
                             android:text="Delivery"
-                            android:buttonTint="@color/primary"
+                            app:buttonTint="@color/orange_tint_list"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     </RadioGroup>
