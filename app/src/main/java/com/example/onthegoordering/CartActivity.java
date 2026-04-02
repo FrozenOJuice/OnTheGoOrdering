@@ -96,7 +96,7 @@ public class CartActivity extends AppCompatActivity {
                     .setTitle("Clear Cart?")
                     .setMessage("Are you sure you want to remove all items from your cart?")
                     .setPositiveButton("Clear All", (dialog, which) -> {
-                        CartManager.getCart().clear();
+                        CartManager.clearCart();
                         adapter.notifyDataSetChanged();
                         updateTotal();
                     })

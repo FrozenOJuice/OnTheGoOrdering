@@ -35,7 +35,14 @@ public class CartManager {
     }
 
     public static void removeItem(int position) {
-        cart.remove(position);
+        if (position >= 0 && position < cart.size()) {
+            cart.remove(position);
+            notifyChange();
+        }
+    }
+
+    public static void clearCart() {
+        cart.clear();
         notifyChange();
     }
 
@@ -71,8 +78,10 @@ public class CartManager {
     }
 
     public static void updateItem(int index, CartItem updatedItem) {
-        cart.remove(index);
-        addItem(updatedItem);
+        if (index >= 0 && index < cart.size()) {
+            cart.remove(index);
+            addItem(updatedItem);
+        }
     }
 
     private static void notifyChange() {

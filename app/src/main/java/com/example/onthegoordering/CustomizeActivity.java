@@ -20,7 +20,7 @@ public class CustomizeActivity extends AppCompatActivity {
     private double basePrice;
     private int quantity = 1;
 
-    private TextView totalText, quantityText, nameText, priceText;
+    private TextView totalText, quantityText, nameText, priceText, txtCartBadge;
     private View btnMinus;
     private ArrayList<CheckBox> checkBoxes = new ArrayList<>();
     private ArrayList<String> initialExtras = new ArrayList<>();
@@ -39,6 +39,10 @@ public class CustomizeActivity extends AppCompatActivity {
         loadIntentData();
         setupExtras();
         setupButtons();
+        
+        CartManager.setListener(() -> updateCartBadge());
+        updateCartBadge();
+        
         updateTotal();
     }
 
@@ -56,6 +60,7 @@ public class CustomizeActivity extends AppCompatActivity {
         quantityText = findViewById(R.id.txtQuantity);
         totalText = findViewById(R.id.txtTotalPrice);
         btnMinus = findViewById(R.id.btnMinus);
+        txtCartBadge = findViewById(R.id.txtCartBadge);
     }
 
     private void loadIntentData() {
@@ -101,7 +106,6 @@ public class CustomizeActivity extends AppCompatActivity {
             cb.setText(extra.name + " (+$" + extra.price + ")");
             cb.setTag(extra);
             
-            // Set orange tint for consistency
             cb.setButtonTintList(orangeList);
 
             if (initialExtras.contains(extra.name)) {
@@ -145,6 +149,23 @@ public class CustomizeActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(v -> saveItem());
     }
 
+    private void updateCartBadge() {
+        int count = CartManager.getCartCount();
+        if (count > 0) {
+            txtCartBadge.setText(String.valueOf(count));
+            txtCartBadge.setVisibility(View.VISIBLE);
+        } else {
+            txtCartBadge.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CartManager.setListener(() -> updateCartBadge());
+        updateCartBadge();
+    }
+
     private void updateTotal() {
         double total = basePrice;
 
@@ -158,10 +179,8 @@ public class CustomizeActivity extends AppCompatActivity {
         total *= quantity;
         totalText.setText("Total: $" + String.format("%.2f", total));
         
-        // Sync quantity text
         quantityText.setText(String.valueOf(quantity));
 
-        // Visibility / Constraints principle: Update minus button appearance and interaction
         if (quantity <= 1) {
             btnMinus.setEnabled(false);
             btnMinus.setAlpha(0.3f);
