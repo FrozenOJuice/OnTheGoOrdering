@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<MenuItem> fullList;
     private ArrayList<MenuItem> filteredList;
     private String currentCategory = "All";
+    private TextView txtNoResults;
+    private TextView txtCartBadge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +35,16 @@ public class MainActivity extends AppCompatActivity {
 
         fullList = createMenu();
         filteredList = new ArrayList<>(fullList);
+        txtNoResults = findViewById(R.id.txtNoResults);
+        txtCartBadge = findViewById(R.id.txtCartBadge);
 
         setupRecycler();
         setupCategoryButtons();
         setupSearch();
         setupCartButton();
+
+        // Listen for global cart changes to update badge immediately
+        CartManager.setListener(() -> updateCartBadge());
 
         // Automatically select "All" category on startup
         handleCategoryClick(findViewById(R.id.btnAll), "All");
@@ -112,6 +119,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        if (filteredList.isEmpty()) {
+            txtNoResults.setVisibility(View.VISIBLE);
+        } else {
+            txtNoResults.setVisibility(View.GONE);
+        }
+
         adapter.notifyDataSetChanged();
     }
 
@@ -137,6 +150,24 @@ public class MainActivity extends AppCompatActivity {
             btn.setBackgroundResource(R.drawable.category_bg);
             btn.setTextColor(getColor(R.color.text_primary));
         }
+    }
+
+    private void updateCartBadge() {
+        int count = CartManager.getCartCount();
+        if (count > 0) {
+            txtCartBadge.setText(String.valueOf(count));
+            txtCartBadge.setVisibility(View.VISIBLE);
+        } else {
+            txtCartBadge.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Re-establish listener in case it was cleared or activity was recreated
+        CartManager.setListener(() -> updateCartBadge());
+        updateCartBadge();
     }
 
     private ArrayList<MenuItem> createMenu() {

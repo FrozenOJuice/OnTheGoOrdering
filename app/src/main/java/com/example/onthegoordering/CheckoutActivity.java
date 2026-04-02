@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.*;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -62,7 +63,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
         backToCartBtn.setOnClickListener(v -> finish());
 
-        placeOrderBtn.setOnClickListener(v -> placeOrder());
+        placeOrderBtn.setOnClickListener(v -> confirmOrder());
     }
 
     private void setupInsets() {
@@ -82,6 +83,12 @@ public class CheckoutActivity extends AppCompatActivity {
                     .append(" x")
                     .append(item.getQuantity())
                     .append("\n");
+            
+            if (item.getExtras() != null && !item.getExtras().isEmpty()) {
+                for (Extra extra : item.getExtras()) {
+                    summary.append("  + ").append(extra.name).append("\n");
+                }
+            }
 
             total += item.getTotalPrice();
         }
@@ -90,7 +97,7 @@ public class CheckoutActivity extends AppCompatActivity {
         totalText.setText("Total: $" + String.format("%.2f", total));
     }
 
-    private void placeOrder() {
+    private void confirmOrder() {
         String name = nameInput.getText().toString().trim();
         String address = addressInput.getText().toString().trim();
 
@@ -104,6 +111,15 @@ public class CheckoutActivity extends AppCompatActivity {
             return;
         }
 
+        new AlertDialog.Builder(this)
+                .setTitle("Confirm Order")
+                .setMessage("Are you sure you want to place this order?")
+                .setPositiveButton("Place Order", (dialog, which) -> placeOrder(name))
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void placeOrder(String name) {
         Toast.makeText(this, "Order placed!", Toast.LENGTH_SHORT).show();
 
         CartManager.getCart().clear();
