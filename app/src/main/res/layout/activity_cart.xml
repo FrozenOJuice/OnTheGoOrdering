@@ -36,19 +36,26 @@
             android:textColor="@color/text_primary"
             android:gravity="center"
             app:layout_constraintStart_toEndOf="@id/imgLogo"
-            app:layout_constraintEnd_toStartOf="@id/rightSpacer"
+            app:layout_constraintEnd_toStartOf="@id/btnClearAll"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <ImageView
-            android:id="@+id/rightSpacer"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <TextView
+            android:id="@+id/btnClearAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:visibility="invisible"
-            app:layout_constraintTop_toTopOf="parent"
+            android:text="Clear All"
+            android:textColor="@color/error"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

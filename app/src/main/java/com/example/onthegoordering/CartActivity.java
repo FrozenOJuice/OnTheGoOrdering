@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ public class CartActivity extends AppCompatActivity {
     TextView totalText;
     TextView emptyText;
     CartAdapter adapter;
+    View btnClearAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class CartActivity extends AppCompatActivity {
         recycler = findViewById(R.id.recyclerCart);
         totalText = findViewById(R.id.txtTotal);
         emptyText = findViewById(R.id.txtEmpty);
+        btnClearAll = findViewById(R.id.btnClearAll);
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
@@ -63,6 +66,23 @@ public class CartActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
+
+            @Override
+            public void onIncrement(int position) {
+                CartManager.getCart().get(position).quantity++;
+                adapter.notifyItemChanged(position);
+                updateTotal();
+            }
+
+            @Override
+            public void onDecrement(int position) {
+                CartItem item = CartManager.getCart().get(position);
+                if (item.quantity > 1) {
+                    item.quantity--;
+                    adapter.notifyItemChanged(position);
+                    updateTotal();
+                }
+            }
         });
 
         recycler.setAdapter(adapter);
@@ -70,6 +90,19 @@ public class CartActivity extends AppCompatActivity {
         updateTotal();
 
         findViewById(R.id.btnBackToMenu).setOnClickListener(v -> finish());
+
+        btnClearAll.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Clear Cart?")
+                    .setMessage("Are you sure you want to remove all items from your cart?")
+                    .setPositiveButton("Clear All", (dialog, which) -> {
+                        CartManager.getCart().clear();
+                        adapter.notifyDataSetChanged();
+                        updateTotal();
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
+        });
 
         Button btnCheckout = findViewById(R.id.btnCheckout);
 
@@ -96,9 +129,11 @@ public class CartActivity extends AppCompatActivity {
         if (CartManager.getCart().isEmpty()) {
             emptyText.setVisibility(View.VISIBLE);
             recycler.setVisibility(View.GONE);
+            btnClearAll.setVisibility(View.GONE);
         } else {
             emptyText.setVisibility(View.GONE);
             recycler.setVisibility(View.VISIBLE);
+            btnClearAll.setVisibility(View.VISIBLE);
         }
     }
 }
